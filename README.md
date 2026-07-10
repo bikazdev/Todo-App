@@ -79,6 +79,9 @@ Users should be able to:
 - ✅ Responsive design
 - ✅ Global state management using Zustand
 - ✅ Clean component-based architecture
+- ✅ Drag and Drop reordering (HTML5 Drag & Drop API)
+- ✅ Touch support for mobile drag and drop
+- ✅ Persistent todos with Zustand Persist
 
 ---
 
@@ -137,6 +140,45 @@ Instead of prop drilling, I managed the application's state using Zustand. This 
 const { todos, addTodo, removeTodo, toggleTodo } = useTodoStore();
 ```
 
+### Native Drag and Drop
+
+Instead of using a third-party library, I implemented drag-and-drop functionality using the native HTML5 Drag and Drop API.
+
+To support mobile devices, I also handled touch events by tracking the touched todo and detecting the drop target with `document.elementFromPoint()`.
+
+During this implementation, I learned how to:
+
+- Handle native drag events (`dragstart`, `dragover`, `drop`)
+- Support touch devices using `touchstart` and `touchend`
+- Reorder arrays efficiently with `splice()`
+- Synchronize reordered data with Zustand state
+- Keep animations smooth using Motion's `layout` prop
+
+```javascript
+const dragged = copyTodo.splice(dragIndex, 1)[0];
+copyTodo.splice(dropIndex, 0, dragged);
+```
+
+### Persisting State with Zustand
+
+I used Zustand's `persist` middleware to automatically save and restore todos from localStorage.
+
+To avoid storing unnecessary UI state, I used the `partialize` option so that only the `todos` array is persisted while temporary values such as filters and input text are recreated from their default state after a refresh.
+
+```javascript
+persist(
+  (set) => ({
+    // store
+  }),
+  {
+    name: "todo-storage",
+    partialize: (state) => ({
+      todos: state.todos,
+    }),
+  },
+);
+```
+
 ---
 
 ### Filtering Data Dynamically
@@ -191,8 +233,6 @@ Using Tailwind CSS allowed me to build a mobile-first responsive layout with min
 
 For future improvements, I plan to add:
 
-- Drag and Drop reordering
-- Local Storage persistence
 - Keyboard accessibility improvements
 - Better animations and transitions
 - Unit testing
@@ -209,9 +249,12 @@ AI tools were used as a learning assistant during development.
 They helped with:
 
 - Debugging React components
-- Improving code structure
 - Understanding Zustand patterns
-- Explaining Tailwind CSS utilities
+- Learning native HTML5 Drag and Drop
+- Implementing touch support for drag and drop
+- Understanding Zustand Persist middleware
+- Learning selective persistence with `partialize`
+- Improving component structure
 - Reviewing implementation ideas
 
 All implementation decisions, integration, and testing were completed manually.
