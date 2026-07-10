@@ -32,7 +32,7 @@ const TodoList = () => {
 
     if (!li) return;
 
-    const dropId = Number(element.dataset.id);
+    const dropId = Number(li.dataset.id);
 
     reorderTodo(dragId, dropId);
 
