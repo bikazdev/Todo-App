@@ -48,9 +48,10 @@ export const useTodoStore = create(
         }),
     }),
     {
-      name: "todo-storage",
+      name: "app-storage",
       partialize: (state) => ({
         todos: state.todos,
+        theme: state.theme,
       }),
     },
   ),
