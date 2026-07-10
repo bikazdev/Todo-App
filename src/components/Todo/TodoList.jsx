@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useTodoStore } from "../../store/useTodo";
 import Input from "../Input";
 import TodoItem from "./TodoItem";
@@ -13,7 +14,30 @@ const TodoList = () => {
     clearTodo,
     isActive,
     setCategory,
+    reorderTodo,
   } = useTodoStore();
+
+  const [dragIndex, setDragIndex] = useState(null);
+  const [dragId, setDragId] = useState(null);
+
+  const handleTouchStart = (id) => {
+    setDragId(id);
+  };
+
+  const handleTouchEnd = (e) => {
+    const touch = e.changedTouches[0];
+    const element = document.elementFromPoint(touch.clientX, touch.clientY);
+
+    const li = element.closest("[data-id]");
+
+    if (!li) return;
+
+    const dropId = Number(element.dataset.id);
+
+    reorderTodo(dragId, dropId);
+
+    setDragId(null);
+  };
 
   const handleAddTodo = (e) => {
     if (e) e.preventDefault();
@@ -26,10 +50,15 @@ const TodoList = () => {
   };
 
   const filteredTodos = todos.filter((todo) => {
-    if (isActive === "Active") return !todo.checked; // آیتم‌های انجام نشده
-    if (isActive === "Completed") return todo.checked; // آیتم‌های انجام شده
-    return true; // برای حالت "All"
+    if (isActive === "Active") return !todo.checked;
+    if (isActive === "Completed") return todo.checked;
+    return true;
   });
+
+  const handleDrop = (dragIndex, index) => {
+    reorderTodo(dragIndex, index);
+    setDragIndex(null);
+  };
 
   return (
     <div className="flex flex-col lg:items-center transition-all">
@@ -41,13 +70,18 @@ const TodoList = () => {
       </form>
 
       <ul className="transition-all duration-100 mt-5 mx-4 lg:w-2/4 xl:w-3/8 shadow-[0_6rem_6rem_rgba(0,0,0,0.5)] dark:bg-slate-800 bg-zinc-50 rounded-t-md ">
-        {filteredTodos.map((todo) => (
+        {filteredTodos.map((todo, index) => (
           <TodoItem
             key={todo.id}
+            dataId={todo.id}
             desc={todo.description}
             checked={todo.checked}
             onRemoveTodo={() => removeTodo(todo.id)}
             onToggleTodo={() => toggleTodo(todo.id)}
+            handleDragStart={() => setDragIndex(todo.id)}
+            handleDrop={() => handleDrop(dragIndex, todo.id)}
+            handleTouchStart={() => handleTouchStart(todo.id)}
+            handleTouchEnd={(e) => handleTouchEnd(e)}
           />
         ))}
       </ul>

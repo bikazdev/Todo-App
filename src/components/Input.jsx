@@ -18,7 +18,6 @@ const Input = ({ onAddTodo }) => {
         placeholder="Create a new todo"
         value={inputTodo}
         onChange={(e) => setInputTodo(e.target.value)}
-        onClick
       />
     </>
   );

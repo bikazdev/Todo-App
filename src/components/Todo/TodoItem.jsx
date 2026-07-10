@@ -1,9 +1,28 @@
 import iconCross from "../../assets/icons/icon-cross.svg";
-
-const TodoItem = ({ desc, checked, onRemoveTodo, onToggleTodo }) => {
+import { motion } from "motion/react";
+const TodoItem = ({
+  desc,
+  checked,
+  onRemoveTodo,
+  onToggleTodo,
+  handleDragStart,
+  handleDrop,
+  handleTouchStart,
+  handleTouchEnd,
+  dataId,
+}) => {
   return (
-    <li
+    <motion.li
+      layout
+      draggable
       className={`w-full flex justify-between items-center pr-5 h-16 border-b dark:border-slate-700/50 border-zinc-300 text-slate-500 text-sm `}
+      onDragStart={handleDragStart}
+      onDragOver={(e) => e.preventDefault()}
+      onDrop={handleDrop}
+
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      data-id={dataId}
     >
       <button
         className={`w-9 h-14 rounded-l-md relative after:w-7 after:h-7 lg:after:h-5.5 lg:after:w-5.5 lg:after:top-4 lg:after:left-5 after:absolute after:left-3.5 after:top-3 after:flex after:justify-center after:items-center 
@@ -29,7 +48,7 @@ const TodoItem = ({ desc, checked, onRemoveTodo, onToggleTodo }) => {
         className="cursor-pointer hover:text-black"
         onClick={onRemoveTodo}
       />
-    </li>
+    </motion.li>
   );
 };
 
