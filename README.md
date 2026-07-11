@@ -50,7 +50,7 @@ Users should be able to:
 
 ## Links
 
-- **Solution URL:** https://www.frontendmentor.io/your-solution
+- **Solution URL:** https://www.frontendmentor.io/solutions/todo-app--CMwl6I1z_
 - **Live Site:** https://todo-app.bikazdev.workers.dev/
 
 ---
