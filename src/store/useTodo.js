@@ -36,6 +36,7 @@ export const useTodoStore = create(
           checked: false,
         },
       ],
+      theme: true,
       inputTodo: "",
       isActive: "All",
       setInputTodo: (value) => set({ inputTodo: value }),
@@ -62,7 +63,6 @@ export const useTodoStore = create(
         set((state) => ({
           todos: state.todos.filter((todo) => !todo.checked),
         })),
-      theme: false,
       toggleTheme: () => set((state) => ({ theme: !state.theme })),
 
       reorderTodo: (dragId, dropId) =>
