@@ -21,6 +21,23 @@ const Footer = () => {
       <span className="flex text-center pt-10 justify-center text-slate-700 select-none">
         Drag and drop to render list
       </span>
+      <span className="text-xs dark:text-white text-slate-800 mx-5 absolute left-0 bottom-5 ">
+        Challenge by{" "}
+        <a
+          href="https://www.frontendmentor.io/solutions/todo-app--CMwl6I1z_"
+          className="text-blue-400 hover:text-blue-200"
+        >
+          Frontend Mentor
+        </a>
+        . Coded by{" "}
+        <a
+          href="https://github.com/bikazdev"
+          className="text-fuchsia-400 hover:text-fuchsia-200"
+        >
+          bikazDev
+        </a>
+        .
+      </span>
     </>
   );
 };
