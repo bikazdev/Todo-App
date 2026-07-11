@@ -88,7 +88,7 @@ const TodoList = () => {
       <div
         className={`h-16 dark:bg-slate-800 bg-zinc-50 mx-4 flex justify-between items-center px-5 font-bold lg:gap-5  rounded-b-md dark:text-slate-600 text-zinc-400 text-sm z-10 select-none lg:w-2/4 xl:w-3/8 transition-all duration-100 ${!filteredTodos.length && "rounded-md shadow-xl"}`}
       >
-        <span>{filteredTodos.length} items left</span>
+        <span>{todos.filter((todo) => !todo.checked).length} items left</span>
         <div className="hidden lg:flex lg:gap-5">
           {["All", "Active", "Completed"].map((item) => (
             <button

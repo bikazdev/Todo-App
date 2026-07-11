@@ -4,7 +4,38 @@ import { persist } from "zustand/middleware";
 export const useTodoStore = create(
   persist(
     (set) => ({
-      todos: [],
+      todos: [
+        {
+          id: 1,
+          description: "Complete online JavaScript course",
+          checked: true,
+        },
+        {
+          id: 2,
+          description: "Jog around the park 3x",
+          checked: false,
+        },
+        {
+          id: 3,
+          description: "10 minutes meditation",
+          checked: false,
+        },
+        {
+          id: 4,
+          description: "Read for 1 hour",
+          checked: false,
+        },
+        {
+          id: 5,
+          description: "Pick up groceries",
+          checked: false,
+        },
+        {
+          id: 6,
+          description: "Complete Todo App on Frontend Mentor",
+          checked: false,
+        },
+      ],
       inputTodo: "",
       isActive: "All",
       setInputTodo: (value) => set({ inputTodo: value }),
@@ -27,7 +58,10 @@ export const useTodoStore = create(
             todo.id === id ? { ...todo, checked: !todo.checked } : todo,
           ),
         })),
-      clearTodo: () => set(() => ({ todos: [] })),
+      clearTodo: () =>
+        set((state) => ({
+          todos: state.todos.filter((todo) => !todo.checked),
+        })),
       theme: false,
       toggleTheme: () => set((state) => ({ theme: !state.theme })),
 

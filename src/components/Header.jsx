@@ -13,7 +13,7 @@ const Header = () => {
 
   return (
     <header
-      className={`w-full h-34 flex justify-between items-center item px-6 lg:mt-10 lg:w-2/4 xl:w-3/8 lg:mx-auto lg:p-0 transition-all duration-100`}
+      className={`w-full h-34 flex justify-between items-center item px-6 lg:mt-8 lg:w-2/4 xl:w-3/8 lg:mx-auto lg:p-0 transition-all duration-100`}
     >
       <h1 className="text-zinc-50 text-4xl font-bold">T O D O</h1>
       <button onClick={toggleTheme} className="cursor-pointer">
